@@ -20,7 +20,7 @@ export const ContactSection = () => {
   const itemVariants: Variants = {
     hidden: { 
       opacity: 0, 
-      y: 40, // Ridotto leggermente per rendere l'uscita più naturale
+      y: 40, 
       scale: 0.98 
     },
     visible: { 
@@ -28,7 +28,7 @@ export const ContactSection = () => {
       y: 0, 
       scale: 1, 
       transition: { 
-        duration: 0.8, // Velocizzato leggermente per reattività allo scroll
+        duration: 0.8, 
         ease: [0.25, 1, 0.5, 1] as any 
       } 
     },
@@ -41,27 +41,39 @@ export const ContactSection = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        exit="hidden" // Forza il ritorno allo stato iniziale quando esce
-        viewport={{ once: false, amount: 0.4 }} // Ripete l'animazione ogni volta
+        exit="hidden" 
+        viewport={{ once: false, amount: 0.4 }} 
         className="max-w-4xl mx-auto p-4 relative z-10 text-center"
       >
         
         {/* Titolo Principale */}
         <motion.div variants={itemVariants} className="relative inline-block mb-12">
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500 pb-2">
-            Let&apos;s build <br /> 
-            <CanvasText 
-                text="something together" 
-                colors={[
-                  "rgba(0, 153, 255, 1)", 
-                  "rgba(0, 153, 255, 0.8)", 
-                  "rgba(0, 153, 255, 0.6)", 
-                  "rgba(0, 153, 255, 0.4)"
-                ]}
-                animationDuration={3}
-                curveIntensity={35}
-                className="inline-block px-2"
-              />
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter pb-2">
+            
+            {/* La parte "Let's build" mantiene il suo colore sfumato bianco-grigio */}
+            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500">
+              Let&apos;s build <br /> 
+            </span>
+
+            {/* VERSIONE MOBILE: Testo semplice, colorato a tinta unita (nascosto su desktop) */}
+            <span className="text-[#00b4ff] md:hidden">
+              something together
+            </span>
+
+            {/* VERSIONE DESKTOP: Il CanvasText animato originale (nascosto su mobile) */}
+            <span className="hidden md:inline-block px-2">
+              <CanvasText 
+                  text="something together" 
+                  colors={[
+                    "rgba(0, 153, 255, 1)", 
+                    "rgba(0, 153, 255, 0.8)", 
+                    "rgba(0, 153, 255, 0.6)", 
+                    "rgba(0, 153, 255, 0.4)"
+                  ]}
+                  animationDuration={3}
+                  curveIntensity={35}
+                />
+            </span>
           </h2>
         </motion.div>
 

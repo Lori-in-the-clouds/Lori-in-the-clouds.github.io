@@ -58,11 +58,10 @@ export const BackgroundBeams = React.memo(
       "M-37 -581C-37 -581 31 -176 495 -49C959 78 1027 483 1027 483",
       "M-30 -589C-30 -589 38 -184 502 -57C966 70 1034 475 1034 475M-23 -597C-23 -597 45 -192 509 -65C973 62 1041 467 1041 467M-16 -605C-16 -605 52 -200 516 -73C980 54 1048 459 1048 459M-9 -613C-9 -613 59 -208 523 -81C987 46 1055 451 1055 451M-2 -621C-2 -621 66 -216 530 -89C994 38 1062 443 1062 443M5 -629C5 -629 73 -224 537 -97C1001 30 1069 435 1069 435M12 -637C12 -637 80 -232 544 -105C1008 22 1076 427 1076 427M19 -645C19 -645 87 -240 551 -113C1015 14 1083 419 1083 419"
     ];
-    
     return (
       <div
         className={cn(
-          "absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden",
+          "absolute inset-0 flex h-full w-full items-center justify-center [mask-repeat:no-repeat] [mask-size:40px]",
           className,
         )}
       >
@@ -81,38 +80,20 @@ export const BackgroundBeams = React.memo(
             strokeWidth="0.5"
           ></path>
 
-          {/* VERSIONE MOBILE: Linee statiche senza gradiente animato */}
-          <g className="md:hidden">
-            {paths.map((path, index) => (
-              <path
-                key={`path-mob-` + index}
-                d={path}
-                stroke="#00b4ff"
-                strokeOpacity="0.15"
-                strokeWidth="0.5"
-              ></path>
-            ))}
-          </g>
-
-          {/* VERSIONE DESKTOP: Linee animate con gradiente */}
-          <g className="hidden md:block">
-            {paths.map((path, index) => (
-              <motion.path
-                key={`path-desk-` + index}
-                d={path}
-                stroke={`url(#linearGradient-${index})`}
-                strokeOpacity="0.4"
-                strokeWidth="0.5"
-              ></motion.path>
-            ))}
-          </g>
-
+          {paths.map((path, index) => (
+            <motion.path
+              key={`path-` + index}
+              d={path}
+              stroke={`url(#linearGradient-${index})`}
+              strokeOpacity="0.4"
+              strokeWidth="0.5"
+            ></motion.path>
+          ))}
           <defs>
             {paths.map((path, index) => (
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 key={`gradient-${index}`}
-                gradientUnits="userSpaceOnUse"
                 initial={{
                   x1: "0%",
                   x2: "0%",
