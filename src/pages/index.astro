@@ -1,0 +1,205 @@
+---
+import '../app.css';
+import {StaggeredMenuDemo} from '../components/elements/StaggeredMenuDemo.tsx';
+import Waves from '../components/ui/Waves.tsx';
+import SplitText from '../components/ui/split_text.tsx';
+import GradientText from '../components/ui/GradientText.tsx';
+import { TimelineDemo } from "../components/elements/timelineDemo";
+import { SkillsSection } from '../components/elements/containerScrollDemo.tsx';
+import { ProjectsGrid } from '../components/ui/ProjectsGrid.tsx';
+import { MovingBorderButton } from "../components/ui/tailwindcss-buttons.tsx";
+import { WelcomeScreen } from '../components/elements/WelcomeScreen';
+import { HeroParallaxDemo } from '../components/elements/HeroParallaxDemo.tsx';
+import { ACTION_QUERY_PARAMS } from 'astro:actions';
+import { ContactSection } from '../components/elements/backGroundBeam.tsx';
+import { toCodes } from 'astro:i18n';
+
+---
+
+<html lang="it">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+        
+        <style is:global>
+            /* Classi critiche per gestire la visibilità */
+
+            html {
+                scroll-behavior: smooth !important;
+            }
+
+            .no-scroll { overflow: hidden !important; height: 100vh !important; }
+
+            #actual-content {
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 1000ms ease-in-out;
+            }
+
+            #actual-content.is-visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #actual-content {
+                position: relative;
+                z-index: 10;
+                pointer-events: auto !important;
+            }
+
+            #intro-layer[style*="display: block"] {
+                pointer-events: auto; /* Riabilita solo se visibile */
+            }
+
+            #intro-layer {
+                pointer-events: none; /* Disabilita i click sull'intro quando sta scomparendo */
+            }
+
+            button.group {
+                position: relative !important;
+                z-index: 999 !important; /* Più alto di Waves e Beams */
+                pointer-events: auto !important; /* Garantisce l'interattività */
+            }
+
+            /* Evita che i layer di background intercettino i click destinati ai testi */
+            #actual-content > section > div.absolute {
+                pointer-events: none !important;
+            }
+        </style>
+    </head>
+    
+    <body class="bg-black text-white no-scroll">
+        
+        <div id="intro-layer" style="position: fixed; inset: 0; z-index: 9999; background: black;">
+            <WelcomeScreen client:load />
+        </div>
+
+        <div id="actual-content">
+            <div class="fixed top-8 right-8 z-[100] w-fit h-fit">
+                <StaggeredMenuDemo client:only="react" />
+            </div>
+            
+            <section class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative px-4">
+                <div class="absolute inset-0 z-0">
+                    <Waves
+                        client:only="react"
+                        lineColor="#3b82f6"  
+                        backgroundColor="transparent"
+                        waveSpeedX={0.0125}
+                        waveSpeedY={0.01}
+                        waveAmpX={40}
+                        waveAmpY={20}
+                        friction={0.9}
+                        tension={0.01}
+                        maxCursorMove={120}
+                        xGap={12}
+                        yGap={36}
+                    />
+                    <div class="absolute inset-0 bg-black/35 backdrop-blur-[0.0px]"></div>
+                </div>
+          
+                <div class="text-left max-w-7xl z-10">
+                    <h2 class="text-[#00b4ff] text-3xl md:text-4xl font-bold tracking-tighter">
+                        <SplitText text="Hello! I'm" client:load/>
+                    </h2>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-200 to-slate-500 pb-2">
+                        Lorenzo Di Maio
+                    </h1>
+
+                    <div class="flex justify-start w-full mt-2">
+                        <h3 class="text-2xl md:text-3xl font-bold tracking-tighter">
+                            <GradientText 
+                                colors={['#00b4ff', '#1e90ff', '#3b82f6', '#1d4ed8', '#1010c2']}
+                                client:only="react" 
+                                className="!justify-start !text-left !mx-0 !w-fit"
+                                animationSpeed={2}
+                            >
+                                M.Sc. Artificial Intelligence Student
+                            </GradientText>
+                        </h3>
+                    </div>
+
+                    <p class="mt-8 text-lg md:text-xl text-neutral-400 max-w-5xl leading-relaxed">
+                        I am an MSc student in Artificial Intelligence Engineering, focused on the study and design of computational models for perception, learning, and decision-making.
+                        My work focuses on <span class="text-white font-bold">machine learning</span>, <span class="text-white font-bold">deep learning</span>, and <span class="text-white font-bold">computer vision</span>.
+                    </p>
+                    
+                    <div class="mt-8 flex flex-wrap gap-4 justify-start">
+                        <a 
+                            href="../CV.pdf" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="inline-block"
+                            >
+                            <MovingBorderButton client:load>View CV</MovingBorderButton>
+                        </a>
+                        
+                        <a href="#contact" class="inline-block">
+                            <MovingBorderButton client:load>
+                                Get in Touch
+                            </MovingBorderButton>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="education" class="bg-black w-full">
+                <TimelineDemo client:only="react" />
+            </section>
+
+
+            <section id="skills" class="bg-black w-full">
+                <HeroParallaxDemo client:only="react" />
+            </section>
+
+            
+            <section id="projects" class="bg-black w-full">
+                <ProjectsGrid client:only="react" />
+            </section>
+
+            <section id="contact" class="bg-black w-full">
+                <ContactSection client:only="react" />
+            </section>
+        </div>
+
+        
+
+    
+        <script>
+            const startReveal = () => {
+                const intro = document.getElementById('intro-layer');
+                const content = document.getElementById('actual-content');
+                const body = document.body;
+
+                setTimeout(() => {
+                    if (intro && content) {
+                        // Sfumiamo l'intro
+                        intro.style.transition = "opacity 800ms ease";
+                        intro.style.opacity = "0";
+
+                        // Mostriamo il contenuto
+                        content.classList.add('is-visible');
+
+                        setTimeout(() => {
+                            intro.style.display = 'none';
+                            body.classList.remove('no-scroll');
+                            // Rimuovi ogni restrizione di altezza che blocca lo scroll
+                            body.style.height = 'unset'; 
+                            body.style.overflow = 'auto';
+                            document.documentElement.style.overflow = 'auto';
+                        }, 800);
+                    }
+                }, 1700); // Durata dell'intro in ms
+            };
+
+            // Esegui al caricamento
+            startReveal();
+            // Esegui dopo i cambi pagina di Astro
+            document.addEventListener('astro:after-swap', startReveal);
+        </script>
+    </body>
+</html>
