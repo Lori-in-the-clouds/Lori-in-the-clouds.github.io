@@ -57,10 +57,12 @@ export const BackgroundBeams = React.memo(
       "M-44 -573C-44 -573 24 -168 488 -41C952 86 1020 491 1020 491",
       "M-37 -581C-37 -581 31 -176 495 -49C959 78 1027 483 1027 483",
     ];
+    
     return (
       <div
+        // QUI HO RIMOSSO [mask-size:40px] e [mask-repeat] E AGGIUNTO overflow-hidden
         className={cn(
-          "absolute inset-0 flex h-full w-full items-center justify-center [mask-repeat:no-repeat] [mask-size:40px]",
+          "absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden",
           className,
         )}
       >
@@ -93,6 +95,7 @@ export const BackgroundBeams = React.memo(
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 key={`gradient-${index}`}
+                gradientUnits="userSpaceOnUse" // <-- AGGIUNTO QUESTO: Previene lo sfarfallio dei gradienti animati su mobile
                 initial={{
                   x1: "0%",
                   x2: "0%",
