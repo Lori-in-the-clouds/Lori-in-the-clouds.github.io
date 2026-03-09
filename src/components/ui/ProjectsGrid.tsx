@@ -2,13 +2,13 @@
 import React, { useState, useRef, useEffect, type ReactElement } from "react";
 import { motion } from "framer-motion";
 
-// --- INTERFACCE (Invariate) ---
+// --- INTERFACCE ---
 interface Project {
   title: string;
   description: string;
   status: string;
   tech: string[];
-  gif?: string;
+  video?: string; // <-- Modificato da 'gif' a 'video'
   github?: string;
 }
 
@@ -23,7 +23,7 @@ export const ProjectsGrid = () => {
       title: "SIDS Revelation",
       description: "A Computer Vision project focused on classification of SIDS-related visual patterns using Deep Learning architectures.",
       status: "Completed",
-      gif: "/projects_files/SIDS.gif",
+      video: "/projects_files/SIDS.mp4", // <-- Modificato in .mp4
       tech: ["TensorFlow", "Keras", "OpenCV", "Python"],
       github: "https://github.com/Lori-in-the-clouds/SIDS_revelation_project"
     },
@@ -31,7 +31,7 @@ export const ProjectsGrid = () => {
       title: "Black Hole Simulation",
       description: "An advanced physics simulation modeling light bending and the event horizon of a Schwarzschild black hole.",
       status: "Completed",
-      gif: "/projects_files/black_hole.gif",
+      video: "/projects_files/black_hole.mp4", // <-- Modificato in .mp4
       tech: ["C++", "OpenGL", "GLS","FFmpeg"],
       github: "https://github.com/Lori-in-the-clouds/Black_Hole_Simulation"
     },
@@ -39,7 +39,7 @@ export const ProjectsGrid = () => {
       title: "EdgeVine IoT",
       description: "An AI-powered IoT ecosystem for precision viticulture, utilizing edge computing and sensor networks.",
       status: "In Progress",
-      gif: "",
+      video: "", // <-- Lasciato vuoto
       tech: ["C++","Python"],
       github: ""
     }
@@ -72,7 +72,6 @@ export const ProjectsGrid = () => {
   };
 
   return (
-    // MODIFICA QUI: Aggiunto -mt-20 per "tirare su" la sezione su mobile, md:mt-0 per resettarlo su PC
     <div className="max-w-7xl mx-auto -mt-20 md:mt-0 pt-10 md:pt-40 pb-20 px-4 w-full relative z-10">
       
       {/* Titolo Allineato con gradiente aggiornato per coerenza col logo */}
@@ -216,7 +215,18 @@ const CardBody = ({ project, setLock }: CardBodyProps) => {
         </h3>
 
         <div style={{ transform: "translateZ(80px)" }} className="w-full h-40 md:h-48 rounded-2xl overflow-hidden mb-8 border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-neutral-800">
-          {project.gif && <img src={project.gif} alt="" className="w-full h-full object-cover scale-110" />}
+          {/* --- MODIFICA QUI: Tag video ottimizzato al posto dell'img --- */}
+          {project.video && (
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover scale-110"
+            >
+              <source src={project.video} type="video/mp4" />
+            </video>
+          )}
         </div>
 
         <p style={{ transform: "translateZ(60px)" }} className="text-neutral-300 text-sm leading-relaxed mb-8">
