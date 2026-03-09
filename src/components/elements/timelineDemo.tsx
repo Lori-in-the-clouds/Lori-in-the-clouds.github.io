@@ -120,7 +120,14 @@ export function TimelineDemo() {
             <p className="text-neutral-300 font-semibold text-base mb-2">University of Modena and Reggio Emilia</p>
             Mastering the fundamentals of software engineering, distributed systems, and hardware-software integration.
           </div>
-          <img src="timeline/Unimore.jpg" alt="Unimore" className="h-44 w-full md:w-3/4 rounded-lg object-cover border border-white/10" />
+          {/* Tag img potenziato con lazy loading e percorsi assoluti */}
+          <img 
+            src="/timeline/Unimore.jpg" 
+            alt="University of Modena and Reggio Emilia campus" 
+            loading="lazy"
+            decoding="async"
+            className="h-44 w-full md:w-3/4 rounded-lg object-cover border border-white/10" 
+          />
         </div>
       ),
     },
@@ -134,7 +141,14 @@ export function TimelineDemo() {
             <p className="text-neutral-300 font-semibold text-base mb-2">University of Modena and Reggio Emilia</p>
             Curriculum covers core areas such as Machine Learning, Deep Learning, and Computer Vision.
           </div>
-          <img src="timeline/Unimore.jpg" alt="Unimore AI" className="h-44 w-full md:w-3/4 rounded-lg object-cover border border-white/10" />
+          {/* Tag img potenziato con lazy loading e percorsi assoluti */}
+          <img 
+            src="/timeline/Unimore.jpg" 
+            alt="AI studies at University of Modena" 
+            loading="lazy"
+            decoding="async"
+            className="h-44 w-full md:w-3/4 rounded-lg object-cover border border-white/10" 
+          />
         </div>
       ),
     }

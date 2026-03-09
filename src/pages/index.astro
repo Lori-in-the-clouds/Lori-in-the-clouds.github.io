@@ -10,7 +10,6 @@ import { MovingBorderButton } from "../components/ui/tailwindcss-buttons.tsx";
 import { WelcomeScreen } from '../components/elements/WelcomeScreen';
 import { HeroParallaxDemo } from '../components/elements/HeroParallaxDemo.tsx';
 import { ContactSection } from '../components/elements/backGroundBeam.tsx';
-
 ---
 
 <html lang="it">
@@ -19,67 +18,51 @@ import { ContactSection } from '../components/elements/backGroundBeam.tsx';
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+
+        <style is:inline>
+            body { background-color: #000000; color: #ffffff; }
+        </style>
         
         <style is:global>
             /* Classi critiche per gestire la visibilità */
-
-            html {
-                scroll-behavior: smooth !important;
-            }
-
+            html { scroll-behavior: smooth !important; }
             .no-scroll { overflow: hidden !important; height: 100vh !important; }
-
             #actual-content {
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 1000ms ease-in-out;
-            }
-
-            #actual-content.is-visible {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            #actual-content {
                 position: relative;
                 z-index: 10;
                 pointer-events: auto !important;
             }
-
-            #intro-layer[style*="display: block"] {
-                pointer-events: auto; /* Riabilita solo se visibile */
-            }
-
-            #intro-layer {
-                pointer-events: none; /* Disabilita i click sull'intro quando sta scomparendo */
-            }
-
+            #actual-content.is-visible { opacity: 1; visibility: visible; }
+            #intro-layer[style*="display: block"] { pointer-events: auto; }
+            #intro-layer { pointer-events: none; }
             button.group {
                 position: relative !important;
-                z-index: 999 !important; /* Più alto di Waves e Beams */
-                pointer-events: auto !important; /* Garantisce l'interattività */
+                z-index: 999 !important; 
+                pointer-events: auto !important; 
             }
-
-            /* Evita che i layer di background intercettino i click destinati ai testi */
-            #actual-content > section > div.absolute {
-                pointer-events: none !important;
-            }
+            #actual-content > section > div.absolute { pointer-events: none !important; }
         </style>
     </head>
     
     <body class="bg-black text-white no-scroll">
         
         <div id="intro-layer" style="position: fixed; inset: 0; z-index: 9999; background: black;">
+            {/* CARICAMENTO IMMEDIATO: È la primissima cosa che l'utente vede */}
             <WelcomeScreen client:load />
         </div>
 
         <div id="actual-content">
             <div class="fixed top-8 right-8 z-[100] w-fit h-fit">
-                <StaggeredMenuDemo client:only="react" />
+                {/* CARICAMENTO IN BACKGROUND: L'utente non aprirà il menu nel primo secondo */}
+                <StaggeredMenuDemo client:idle />
             </div>
             
             <section class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white relative px-4">
                 <div class="absolute inset-0 z-0">
+                    {/* ONLY REACT: Mantenuto perché il canvas WebGL spesso si rompe se renderizzato lato server */}
                     <Waves
                         client:only="react"
                         lineColor="#3b82f6"  
@@ -99,6 +82,7 @@ import { ContactSection } from '../components/elements/backGroundBeam.tsx';
           
                 <div class="text-left max-w-7xl z-10">
                     <h2 class="text-[#00b4ff] text-3xl md:text-4xl font-bold tracking-tighter">
+                        {/* LOAD: I testi principali devono apparire subito */}
                         <SplitText text="Hello! I'm" client:load/>
                     </h2>
                     
@@ -108,9 +92,10 @@ import { ContactSection } from '../components/elements/backGroundBeam.tsx';
 
                     <div class="flex justify-start w-full mt-2">
                         <h3 class="text-2xl md:text-3xl font-bold tracking-tighter">
+                            {/* LOAD: Il sottotitolo è "above the fold" (visibile subito) */}
                             <GradientText 
                                 colors={['#00b4ff', '#1e90ff', '#3b82f6', '#1d4ed8', '#1010c2']}
-                                client:only="react" 
+                                client:load 
                                 className="!justify-start !text-left !mx-0 !w-fit"
                                 animationSpeed={2}
                             >
@@ -125,46 +110,34 @@ import { ContactSection } from '../components/elements/backGroundBeam.tsx';
                     </p>
                     
                     <div class="mt-8 flex flex-wrap gap-4 justify-start">
-                        <a 
-                            href="../CV.pdf" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            class="inline-block"
-                            >
+                        <a href="../CV.pdf" target="_blank" rel="noopener noreferrer" class="inline-block">
                             <MovingBorderButton client:load>View CV</MovingBorderButton>
                         </a>
                         
                         <a href="#contact" class="inline-block">
-                            <MovingBorderButton client:load>
-                                Get in Touch
-                            </MovingBorderButton>
+                            <MovingBorderButton client:load>Get in Touch</MovingBorderButton>
                         </a>
-
                     </div>
                 </div>
             </section>
 
+            {/* SEZIONI BELOW THE FOLD (Sotto la prima schermata) -> client:visible */}
             <section id="education" class="bg-black w-full">
-                <TimelineDemo client:only="react" />
+                <TimelineDemo client:visible />
             </section>
-
 
             <section id="skills" class="bg-black w-full">
-                <HeroParallaxDemo client:only="react" />
+                <HeroParallaxDemo client:visible />
             </section>
-
             
             <section id="projects" class="bg-black w-full">
-                <ProjectsGrid client:only="react" />
+                <ProjectsGrid client:visible />
             </section>
 
             <section id="contact" class="bg-black w-full">
-                <ContactSection client:only="react" />
+                <ContactSection client:visible />
             </section>
         </div>
-
-        
-
     
         <script>
             const startReveal = () => {
@@ -174,28 +147,22 @@ import { ContactSection } from '../components/elements/backGroundBeam.tsx';
 
                 setTimeout(() => {
                     if (intro && content) {
-                        // Sfumiamo l'intro
                         intro.style.transition = "opacity 800ms ease";
                         intro.style.opacity = "0";
-
-                        // Mostriamo il contenuto
                         content.classList.add('is-visible');
 
                         setTimeout(() => {
                             intro.style.display = 'none';
                             body.classList.remove('no-scroll');
-                            // Rimuovi ogni restrizione di altezza che blocca lo scroll
                             body.style.height = 'unset'; 
                             body.style.overflow = 'auto';
                             document.documentElement.style.overflow = 'auto';
                         }, 800);
                     }
-                }, 1700); // Durata dell'intro in ms
+                }, 1700); 
             };
 
-            // Esegui al caricamento
             startReveal();
-            // Esegui dopo i cambi pagina di Astro
             document.addEventListener('astro:after-swap', startReveal);
         </script>
     </body>
