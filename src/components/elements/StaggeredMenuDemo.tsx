@@ -12,7 +12,7 @@ const menuItems = [
 
 const socialItems = [
   { label: 'GitHub', link: 'https://github.com/Lori-in-the-clouds' },
-  { label: 'LinkedIn', link: 'https://www.linkedin.com/in/lorenzo-di-maio-08557b22b/' }
+  { label: 'LinkedIn', link: 'https://www.linkedin.com/in/lorenzo-di-maio' }
 ];
 
 export const StaggeredMenuDemo = () => {
