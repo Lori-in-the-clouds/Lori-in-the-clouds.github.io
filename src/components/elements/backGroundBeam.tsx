@@ -91,7 +91,7 @@ export const ContactSection = () => {
             <motion.a 
               whileHover={{ scale: 1.1, color: "#00b4ff" }}
               whileTap={{ scale: 0.9 }}
-              href="https://www.linkedin.com/in/lorenzo-di-maio-08557b22b/" 
+              href="linkedin.com/in/lorenzo-di-maio" 
               target="_blank" 
               className="group flex items-center gap-2 text-neutral-400 transition-colors duration-300"
             >
