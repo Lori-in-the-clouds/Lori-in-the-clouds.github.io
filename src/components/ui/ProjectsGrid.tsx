@@ -42,7 +42,17 @@ export const ProjectsGrid = () => {
       video: "", // <-- Lasciato vuoto
       tech: ["C++","Python"],
       github: ""
+    },
+
+    {
+      title: "Oak-Ulus",
+      description: "A touchless gesture control system designed for sterile medical environments. Utilizing Luxonis OAK cameras, it enables surgeons to navigate X-rays and 3D medical models via hand gestures, ensuring zero physical contact and maintaining clinical hygiene standards.",
+      status: "Completed",
+      video: "/projects_files/Oak_Ulus.mp4",
+      tech: ["Python", "JavaScript","Astro"],
+      github: "https://github.com/dcfrenci/Oak-Ulus"
     }
+    
   ];
 
   // --- LOGICA CAROSELLO MOBILE (Invariata) ---
