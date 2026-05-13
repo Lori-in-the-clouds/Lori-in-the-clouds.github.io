@@ -48,7 +48,7 @@ export const ProjectsGrid = () => {
       title: "Oak-Ulus",
       description: "A touchless gesture control system designed for sterile medical environments. Utilizing Luxonis OAK cameras, it enables surgeons to navigate X-rays and 3D medical models via hand gestures, ensuring zero physical contact and maintaining clinical hygiene standards.",
       status: "Completed",
-      video: "/projects_files/Oak_Ulus.mp4",
+      video: "/projects_files/oak_ulus.mp4",
       tech: ["Python", "JavaScript","Astro"],
       github: "https://github.com/dcfrenci/Oak-Ulus"
     }
