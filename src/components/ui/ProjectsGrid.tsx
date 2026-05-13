@@ -35,6 +35,7 @@ export const ProjectsGrid = () => {
       tech: ["C++", "OpenGL", "GLS","FFmpeg"],
       github: "https://github.com/Lori-in-the-clouds/Black_Hole_Simulation"
     },
+
     {
       title: "EdgeVine IoT",
       description: "An AI-powered IoT ecosystem for precision viticulture, utilizing edge computing and sensor networks.",
@@ -46,12 +47,13 @@ export const ProjectsGrid = () => {
 
     {
       title: "Oak-Ulus",
-      description: "A touchless gesture control system designed for sterile medical environments. Utilizing Luxonis OAK cameras, it enables surgeons to navigate X-rays and 3D medical models via hand gestures, ensuring zero physical contact and maintaining clinical hygiene standards.",
+      description: "A touchless gesture control system designed for sterile medical environments utilizing Luxonis OAK cameras.",
       status: "Completed",
       video: "/projects_files/oak_ulus.mp4",
       tech: ["Python", "JavaScript","Astro"],
       github: "https://github.com/dcfrenci/Oak-Ulus"
     }
+    
     
   ];
 
@@ -224,18 +226,24 @@ const CardBody = ({ project, setLock }: CardBodyProps) => {
           {project.title}
         </h3>
 
-        <div style={{ transform: "translateZ(80px)" }} className="w-full h-40 md:h-48 rounded-2xl overflow-hidden mb-8 border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-neutral-800">
-          {/* --- MODIFICA QUI: Tag video ottimizzato al posto dell'img --- */}
-          {project.video && (
+        <div 
+          style={{ transform: "translateZ(80px)" }} 
+          className="w-full mb-8 border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-neutral-800 relative rounded-2xl overflow-hidden aspect-video"
+        >
+          {project.video ? (
             <video 
               autoPlay 
               loop 
               muted 
               playsInline 
-              className="w-full h-full object-cover scale-110"
+              className="absolute inset-0 w-full h-full object-cover"
             >
               <source src={project.video} type="video/mp4" />
             </video>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-neutral-600 text-xs">Coming Soon</span>
+            </div>
           )}
         </div>
 
