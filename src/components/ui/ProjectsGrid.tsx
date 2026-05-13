@@ -51,7 +51,7 @@ export const ProjectsGrid = () => {
       status: "Completed",
       video: "/projects_files/oak_ulus.mp4",
       tech: ["Python", "JavaScript","Astro"],
-      github: "https://github.com/dcfrenci/Oak-Ulus"
+      github: "https://github.com/dcfrenci/oak-ulus"
     }
     
     
