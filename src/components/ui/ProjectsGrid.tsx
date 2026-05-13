@@ -49,7 +49,7 @@ export const ProjectsGrid = () => {
       title: "Oak-Ulus",
       description: "A touchless gesture control system designed for sterile medical environments utilizing Luxonis OAK cameras.",
       status: "Completed",
-      video: "/projects_files/oak_ulus.mp4",
+      video: "/projects_files/Oak_Ulus.mp4",
       tech: ["Python", "JavaScript","Astro"],
       github: "https://github.com/dcfrenci/oak-ulus"
     }
