@@ -39,10 +39,10 @@ export const ProjectsGrid = () => {
     {
       title: "EdgeVine IoT",
       description: "An AI-powered IoT ecosystem for precision viticulture, utilizing edge computing and sensor networks.",
-      status: "In Progress",
-      video: "", // <-- Lasciato vuoto
-      tech: ["C++","Python"],
-      github: ""
+      status: "Completed",
+      video: "/projects_files/edgevine_video.mp4", 
+      tech: ["Arduino","TypeScript","Python","Astro","PostgreSQL","Docker"],
+      github: "https://github.com/Lori-in-the-clouds/EdgeVine"
     },
 
     {
